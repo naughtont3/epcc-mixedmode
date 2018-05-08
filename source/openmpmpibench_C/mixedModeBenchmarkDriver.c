@@ -351,4 +351,5 @@ int main(int argc, char *argv[]){
 	     closeFile();
 	}
 
+    return (0);
 }
