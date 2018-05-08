@@ -39,7 +39,6 @@
 /*-----------------------------------------------------------*/
 #include "pt_to_pt_pingpong.h"
 
-
 /*-----------------------------------------------------------*/
 /* pingPong                                    				 */
 /*                                                           */
@@ -161,6 +160,7 @@ int masteronlyPingpong(int totalReps, int dataSize){
 		if (myMPIRank == pingRank){
 #pragma omp parallel for default(none) \
 	private(i) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
 	shared(pingSendBuf,dataSize,sizeofBuffer,globalIDarray) \
 	schedule(static,dataSize)
 
@@ -181,6 +181,7 @@ int masteronlyPingpong(int totalReps, int dataSize){
 
 #pragma omp parallel for default(none) \
 	private(i) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
 	shared(pongRecvBuf,finalRecvBuf,dataSize,sizeofBuffer) \
 	schedule(static,dataSize)
 			for(i=0; i<sizeofBuffer; i++){
@@ -197,6 +198,7 @@ int masteronlyPingpong(int totalReps, int dataSize){
 			 */
 #pragma omp parallel for default(none) \
 	private(i) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
         shared(pongSendBuf,pingRecvBuf,dataSize,sizeofBuffer) \
 	schedule(static,dataSize)
 			for(i=0; i< sizeofBuffer; i++){
@@ -204,7 +206,7 @@ int masteronlyPingpong(int totalReps, int dataSize){
 			}
 
 			/* pongRank process now sends pongSendBuf to ping process. */
-			MPI_Send(pongSendBuf, sizeofBuffer, MPI_INTEGER, pingRank, \
+			MPI_Send(pongSendBuf, sizeofBuffer, MPI_INT, pingRank, \
 					TAG, comm);
 		}
 	}
@@ -228,6 +230,7 @@ int funnelledPingpong(int totalReps, int dataSize){
 	/* Open parallel region for threads */
 #pragma omp parallel default(none) \
 	private(i,repIter) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
 	shared(pingRank,pongRank,pingSendBuf,pingRecvBuf) \
 	shared(pongSendBuf,pongRecvBuf,finalRecvBuf,sizeofBuffer) \
 	shared(dataSize,globalIDarray,comm,status,totalReps,myMPIRank)
@@ -315,6 +318,7 @@ int multiplePingpong(int totalReps, int dataSize){
 	/* Open parallel region for threads under pingRank */
 #pragma omp parallel default(none) \
 	private(i,repIter,lBound) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
 	shared(pingRank,pongRank,pingSendBuf,pingRecvBuf) \
 	shared(pongSendBuf,pongRecvBuf,finalRecvBuf,sizeofBuffer) \
 	shared(dataSize,globalIDarray,comm,status,totalReps,myMPIRank)

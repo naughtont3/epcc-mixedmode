@@ -171,6 +171,7 @@ int masteronlyPingping(int totalReps, int dataSize){
 			 */
 #pragma omp parallel for default(none) \
 	private(i) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
 	shared(pingSendBuf,dataSize,sizeofBuffer,globalIDarray) \
 	schedule(static,dataSize)
 			for (i=0; i<sizeofBuffer; i++){
@@ -195,6 +196,7 @@ int masteronlyPingping(int totalReps, int dataSize){
 			 */
 #pragma omp parallel for default(none) \
 	private(i) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
 	shared(finalRecvBuf,dataSize,sizeofBuffer,pingRecvBuf) \
 	schedule(static,dataSize)
 			for (i=0; i<sizeofBuffer; i++){
@@ -229,6 +231,7 @@ int funnelledPingping(int totalReps, int dataSize){
 	/* Open the parallel region */
 #pragma omp parallel default(none) \
 	private(i, repIter) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
 	shared(dataSize,sizeofBuffer,pingSendBuf,globalIDarray) \
 	shared(pingRecvBuf,finalRecvBuf,status,requestID) \
 	shared(destRank,comm,myMPIRank,pingRankA,pingRankB,totalReps)
@@ -300,6 +303,7 @@ int multiplePingping(int totalReps, int dataSize){
     /* Open parallel region */
 #pragma omp parallel default(none) \
 	private(i,lBound,requestID,status,repIter) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
 	shared(pingSendBuf,pingRecvBuf,finalRecvBuf,sizeofBuffer) \
 	shared(destRank,myMPIRank,pingRankA,pingRankB,totalReps) \
 	shared(dataSize,globalIDarray,comm)

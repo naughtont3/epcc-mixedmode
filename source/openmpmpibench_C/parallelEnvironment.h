@@ -45,6 +45,8 @@
 #include <omp.h>
 #include "benchmarkSetup.h"
 
+#include "TJN_debug.h"
+
 /* function prototypes */
 int initParallelEnv();
 int finaliseParallelEnv();

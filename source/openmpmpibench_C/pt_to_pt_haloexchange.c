@@ -203,6 +203,7 @@ int funnelledHaloexchange(int totalReps, int dataSize){
 	/* Open the parallel region */
 #pragma omp parallel default(none) \
 	private(i,repIter) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
 	shared(dataSize,sizeofBuffer,leftSendBuf,rightSendBuf) \
 	shared(rightRecvBuf,leftRecvBuf,finalLeftBuf,finalRightBuf) \
 	shared(globalIDarray,commCart,totalReps,requestArray,statusArray) \
@@ -273,6 +274,7 @@ int multipleHaloexchange(int totalReps, int dataSize){
 	/* Open the parallel region */
 #pragma omp parallel default(none) \
 	private(i,requestArray,statusArray,lBound,repIter) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
 	shared(dataSize,sizeofBuffer,leftSendBuf,rightSendBuf) \
 	shared(rightRecvBuf,leftRecvBuf,finalLeftBuf,finalRightBuf) \
 	shared(leftNeighbour,rightNeighbour,globalIDarray,commCart,totalReps)

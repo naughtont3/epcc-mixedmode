@@ -270,6 +270,7 @@ int funnelledMultiPingpong(int totalReps, int dataSize){
 	/* Open the parallel region for threads */
 #pragma omp parallel default(none) \
 	private(i,repIter) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
 	shared(pingNode,pongNode,pingSendBuf,pingRecvBuf) \
 	shared(pongSendBuf,pongRecvBuf,finalRecvBuf,sizeofBuffer) \
 	shared(dataSize,globalIDarray,crossComm,status) \
@@ -370,6 +371,7 @@ int multipleMultiPingpong(int totalReps, int dataSize){
 	/* Open parallel region for threads */
 #pragma omp parallel default(none) \
 	private(i,repIter,status,lBound) \
+    shared(ompi_mpi_comm_world,ompi_mpi_int) \
 	shared(pingNode,pongNode,pingSendBuf,pingRecvBuf) \
 	shared(pongSendBuf,pongRecvBuf,finalRecvBuf,sizeofBuffer) \
 	shared(dataSize,globalIDarray,crossComm) \

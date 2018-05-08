@@ -211,7 +211,7 @@ int allReduceKernel(int totalReps, int dataSize){
 		 * the MPI processes.
 		 */
 		 MPI_Allreduce(localReduceBuf, globalReduceBuf, \
-				 dataSize, MPI_INTEGER, MPI_SUM, comm);
+				 dataSize, MPI_INT, MPI_SUM, comm);
 
 		 /* Each thread copies globalReduceBuf into its portion
 		  * of finalReduceBuf.

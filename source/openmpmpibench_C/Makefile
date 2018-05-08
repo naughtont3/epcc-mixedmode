@@ -6,8 +6,8 @@
 # then type 'make'.                              #
 #------------------------------------------------#
 
-CC=
-CFLAGS=	
+CC=mpicc
+CFLAGS=-fopenmp -O3
 
 #--------------------------------------#
 # Build rules                          #
@@ -65,4 +65,4 @@ $(EXE):	$(OBJ)
 $(OBJ):	$(INC) $(MF)
 
 clean:
-	rm -f $(OBJ) $(EXE) core 
+	rm -f $(OBJ) $(EXE) core
